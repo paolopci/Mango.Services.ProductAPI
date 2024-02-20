@@ -12,7 +12,7 @@ namespace Mango.Services.ProductAPI.Controllers
     public class ProductAPIController : ControllerBase
     {
         private readonly AppDbContext _db;
-        private IMapper _mapper;
+        private readonly IMapper _mapper;
         private readonly ResponseDto _response;
 
         public ProductAPIController(AppDbContext db, IMapper mapper)
@@ -101,6 +101,7 @@ namespace Mango.Services.ProductAPI.Controllers
                 Product obj = _db.Products.First(p => p.ProductId == id);
                 _db.Products.Remove(obj);
                 _db.SaveChanges();
+                // non ho messo il _response.Result non mi serve.
             }
             catch (Exception ex)
             {
