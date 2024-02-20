@@ -12,8 +12,8 @@ namespace Mango.Services.ProductAPI.Controllers
     public class ProductAPIController : ControllerBase
     {
         private readonly AppDbContext _db;
-        private readonly IMapper _mapper;
-        private readonly ResponseDto _response;
+        private IMapper _mapper;
+        private ResponseDto _response;
 
         public ProductAPIController(AppDbContext db, IMapper mapper)
         {
@@ -94,6 +94,7 @@ namespace Mango.Services.ProductAPI.Controllers
         }
 
         [HttpDelete]
+        [Route("{id:int}")]
         public ResponseDto Delete(int id)
         {
             try
