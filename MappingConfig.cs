@@ -12,8 +12,8 @@ namespace Mango.Services.ProductAPI
             var mappingConfig = new MapperConfiguration(config =>
             {
                 // perchè funzioni assicurati che il nome delle proprietà inSource e Target siano le stesse
-                config.CreateMap<Product, ProductDto>();
-                config.CreateMap<ProductDto, Product>();
+                config.CreateMap<Product, ProductDto>().ReverseMap();
+              //  config.CreateMap<ProductDto, Product>();
             });
             return mappingConfig;
         }

@@ -2,6 +2,7 @@ using System.Text;
 using AutoMapper;
 using Mango.Services.ProductAPI;
 using Mango.Services.ProductAPI.Data;
+using Mango.Services.ProductAPI.Data.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -51,33 +52,33 @@ builder.Services.AddSwaggerGen(option =>
     });
 });
 // -----------------------------------------------------------------------
+//var settingsSection = builder.Configuration.GetSection("ApiSettings");
 
-var settingsSection = builder.Configuration.GetSection("ApiSettings");
-
-var secret = settingsSection.GetValue<string>("Secret");
-var issuer = settingsSection.GetValue<string>("Issuer");
-var audience = settingsSection.GetValue<string>("Audience");
+//var secret = settingsSection.GetValue<string>("Secret");
+//var issuer = settingsSection.GetValue<string>("Issuer");
+//var audience = settingsSection.GetValue<string>("Audience");
 
 
-// ------------------------------------------------------------------------------
-var key = Encoding.ASCII.GetBytes(secret);
+//// ------------------------------------------------------------------------------
+//var key = Encoding.ASCII.GetBytes(secret);
 
-builder.Services.AddAuthentication(x =>
-{
-    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-}).AddJwtBearer(x =>
-{
-    x.TokenValidationParameters = new TokenValidationParameters()
-    {
-        ValidateIssuerSigningKey = true,
-        IssuerSigningKey = new SymmetricSecurityKey(key),
-        ValidateIssuer = true,
-        ValidIssuer = issuer,
-        ValidAudience = audience,
-        ValidateAudience = true
-    };
-});
+//builder.Services.AddAuthentication(x =>
+//{
+//    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+//    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+//}).AddJwtBearer(x =>
+//{
+//    x.TokenValidationParameters = new TokenValidationParameters()
+//    {
+//        ValidateIssuerSigningKey = true,
+//        IssuerSigningKey = new SymmetricSecurityKey(key),
+//        ValidateIssuer = true,
+//        ValidIssuer = issuer,
+//        ValidAudience = audience,
+//        ValidateAudience = true
+//    };
+//});
+builder.AddAppAuthentication();
 builder.Services.AddAuthorization();
 // -----------------------------------------------------------------------------
 
